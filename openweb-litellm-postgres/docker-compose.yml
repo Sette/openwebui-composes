@@ -4,7 +4,7 @@ services:
     container_name: 'open-webui'
     image: 'ghcr.io/open-webui/open-webui:main'
     volumes:
-      - '/home/bruno.sette@softplan.com.br/app/backend/data:/app/backend/data:rw'
+      - '${HOME}/app/backend/data:/app/backend/data:rw'
     ports:
       - '7070:8080'
     env_file:
