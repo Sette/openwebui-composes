@@ -1,0 +1,71 @@
+version: "3.11"
+services:
+  open-webui:
+    container_name: 'open-webui'
+    image: 'ghcr.io/open-webui/open-webui:main'
+    volumes:
+      - '/home/bruno.sette@softplan.com.br/app/backend/data:/app/backend/data:rw'
+    ports:
+      - '7070:8080'
+    env_file:
+      - '.env'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: 'always'
+    
+  litellm:
+    build:
+      context: .
+      args:
+        target: runtime
+    container_name: litellm
+    image: ghcr.io/berriai/litellm:main-stable
+    #########################################
+    ## Uncomment these lines to start proxy with a config.yaml file ##
+    volumes:
+      - ./config.yaml:/app/config.yaml 
+    command:
+      - "--config=/app/config.yaml"
+    ##############################################
+    ports:
+      - "4000:4000" # Map the container port to the host, change the host port if necessary
+      - "8000:8000"  # Web UI
+    environment:
+        DATABASE_URL: ${DATABASE_URL}
+        STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
+    env_file:
+      - .env # Load local .env file
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    depends_on:
+      - db  # Indicates that this service depends on the 'db' service, ensuring 'db' starts first
+    healthcheck:  # Defines the health check configuration for the container
+      test: [ "CMD", "curl", "-f", "http://localhost:4040/health/liveliness || exit 1" ]  # Command to execute for health check
+      interval: 30s  # Perform health check every 30 seconds
+      timeout: 10s   # Health check command times out after 10 seconds
+      retries: 3     # Retry up to 3 times if health check fails
+      start_period: 40s  # Wait 40 seconds after container start before beginning health checks
+    restart: 'always'
+
+  db:
+    image: postgres:16
+    container_name: litellm_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${UI_USERNAME}
+      POSTGRES_PASSWORD: ${UI_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persists Postgres data across container restarts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    restart: 'always'
+
+volumes:
+  postgres_data:
+    name: litellm_postgres_data  # Named volume for Postgres data persistence
+    

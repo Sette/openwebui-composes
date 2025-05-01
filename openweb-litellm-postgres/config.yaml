@@ -1,0 +1,50 @@
+model_list:
+  - model_name: os.environ/MODEL_NAME_1 # Model Alias to use for requests
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_1
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_1
+      
+  - model_name: os.environ/MODEL_NAME_1
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_1
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_2
+
+  - model_name: os.environ/MODEL_NAME_1
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_1
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_3
+
+  - model_name: os.environ/MODEL_NAME_1
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_1
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_4
+
+  - model_name: os.environ/MODEL_NAME_1
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_1
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_5
+
+  - model_name: os.environ/MODEL_NAME_2 # Model Alias to use for requests
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_2
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_1
+
+  - model_name: os.environ/MODEL_NAME_2
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_2
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_2
+
+  - model_name: os.environ/MODEL_NAME_2
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_2
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_3
+
+  - model_name: os.environ/MODEL_NAME_2
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_2
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_4
+
+  - model_name: os.environ/MODEL_NAME_2
+    litellm_params:
+      model: os.environ/GROUQ_MODEL_NAME_2
+      api_key: os.environ/GROUQ_API_KEY_ACCOUNT_5
