@@ -1,4 +1,3 @@
-version: "3.11"
 services:
   open-webui:
     container_name: 'open-webui'
@@ -12,6 +11,8 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     restart: 'always'
+    networks:
+      - my_shared_network 
     
   litellm:
     build:
@@ -42,14 +43,14 @@ services:
       retries: 3     # Retry up to 3 times if health check fails
       start_period: 40s  # Wait 40 seconds after container start before beginning health checks
     restart: 'always'
+    networks:
+      - my_shared_network 
 
   db:
     image: postgres:16
     container_name: litellm_db
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${UI_USERNAME}
-      POSTGRES_PASSWORD: ${UI_PASSWORD}
+    env_file:
+      - .env # Load local .env file
     ports:
       - "5432:5432"
     volumes:
@@ -60,6 +61,14 @@ services:
       timeout: 5s
       retries: 10
     restart: 'always'
+    networks:
+      - my_shared_network 
+
+
+networks:
+  my_shared_network:
+    external: true # Declara que esta rede já existe e é externa
+
 
 volumes:
   postgres_data:
