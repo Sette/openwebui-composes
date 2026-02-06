@@ -7,7 +7,7 @@ Este projeto reúne três serviços principais — LiteLLM, OpenWebUI e PostgreS
 ```
 ├── litellm/
 │   └── .env
-├── openwebui/
+├── openweb/
 │   └── .env
 ├── postgres/
 │   └── .env
@@ -25,7 +25,7 @@ LITELLM_PORT=8000
 # Adicione outras variáveis conforme documentação do LiteLLM
 ```
 
-### Exemplo do arquivo `openwebui/.env`:
+### Exemplo do arquivo `openweb/.env`:
 ```
 OPENWEBUI_SECRET=sua-chave-secreta
 OPENWEBUI_PORT=8080
