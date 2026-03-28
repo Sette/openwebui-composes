@@ -3,11 +3,11 @@ services:
     image: postgres:16
     container_name: litellm_db
     env_file:
-      - .env # Load local .env file
+      - .env
     ports:
       - "5432:5432"
     volumes:
-      - '${HOME}/app/backend/postgres:/var/lib/postgresql/data'  # Persists Postgres data across container restarts
+      - '${HOME}/app/backend/postgres:/var/lib/postgresql/data'
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
       interval: 1s

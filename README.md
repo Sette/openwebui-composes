@@ -20,24 +20,32 @@ Antes de iniciar os containers, crie um arquivo `.env` dentro de cada pasta corr
 
 ### Exemplo do arquivo `litellm/.env`:
 ```
-LITELLM_API_KEY=sua-chave-litellm
-LITELLM_PORT=8000
-# Adicione outras variáveis conforme documentação do LiteLLM
+LITELLM_API_KEY="sua-chave-litellm"
+LITELLM_PORT=7000
+LITELLM_MASTER_KEY="sk-1234"
+DATABASE_URL="postgresql://llmproxy:dbpassword9090@db:5432/litellm"
+STORE_MODEL_IN_DB="True"
 ```
 
 ### Exemplo do arquivo `openweb/.env`:
 ```
-OPENWEBUI_SECRET=sua-chave-secreta
-OPENWEBUI_PORT=8080
-# Adicione outras variáveis conforme documentação do OpenWebUI
+WEBUI_SECRET_KEY=sua-chave-secreta
+PORT=8080
+OPENWEBUI_DB_NAME=openwebui
+DATABASE_URL_OPENWEBUI=postgresql://llmproxy:sua_senha_secreta@host.docker.internal:5432/openwebui
 ```
 
 ### Exemplo do arquivo `postgres/.env`:
 ```
-POSTGRES_USER=meuusuario
-POSTGRES_PASSWORD=senhasegura
-POSTGRES_DB=meubanco
+POSTGRES_USER=llmproxy
+POSTGRES_PASSWORD=sua_senha_secreta
+POSTGRES_DB=litellm
 # Adicione outras variáveis conforme desejado
+```
+
+### Crie a database do openwebui
+```bash
+docker exec -it litellm_db psql -U llmproxy -d litellm -c "CREATE DATABASE openwebui;"
 ```
 
 > **Importante:**  

@@ -1,20 +1,14 @@
 services:
   litellm:
-    build:
-      context: .
-      args:
-        target: runtime
     container_name: litellm
-    image: ghcr.io/berriai/litellm:main-stable
-    #########################################
-    ## Uncomment these lines to start proxy with a config.yaml file ##
+    image: ghcr.io/berriai/litellm:v1.82.3-stable.patch.2
     volumes:
       - ./config.yaml:/app/config.yaml 
     command:
-      - "--config=/app/config.yaml"
-    ##############################################
+      - --config=/app/config.yaml
     ports:
-      - "4000:4000" # Map the container port to the host, change the host port if necessary
+      - "7000:4000" # Map the container port to the host, change the host port if necessary
+      - "4040:4040"
     env_file:
       - .env # Load local .env file
     extra_hosts:

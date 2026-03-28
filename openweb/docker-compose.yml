@@ -7,7 +7,9 @@ services:
     ports:
       - '7070:8080'
     env_file:
-      - .env # Load local .env file
+      - .env 
+    environment:
+      - DATABASE_URL=${DATABASE_URL_OPENWEBUI}
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     restart: 'always'

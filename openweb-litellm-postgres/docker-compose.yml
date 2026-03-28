@@ -15,10 +15,6 @@ services:
       - my_shared_network 
     
   litellm:
-    build:
-      context: .
-      args:
-        target: runtime
     container_name: litellm
     image: ghcr.io/berriai/litellm:main-stable
     #########################################
