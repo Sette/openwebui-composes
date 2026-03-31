@@ -1,0 +1,11 @@
+services:
+  ollama:
+    image: ollama/ollama:0.19.0
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ${HOME}/app/backend/ollama:/root/.ollama
+    # O comando abaixo sobe o servidor em segundo plano, baixa o modelo e depois traz o servidor para o primeiro plano
+    entrypoint: /bin/sh -c "ollama serve & sleep 5 && ollama pull llama3 && wait"
+    restart: unless-stopped
