@@ -1,7 +1,5 @@
-model_list:
-  - model_name: os.environ/MODEL_NAME_1 # Model Alias to use for requests
-    litellm_params:
-      model: os.environ/GROUQ_MODEL_NAME_1
-      api_key: os.environ/GROUQ_API_KEY_ACCOUNT
-      
+# 1. Configurações gerais do LiteLLM (Aqui desativamos os pings que travam a CPU)
+litellm_settings:
+  background_health_checks: false
+
   
