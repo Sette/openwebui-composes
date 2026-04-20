@@ -1,0 +1,21 @@
+services:
+  ollama:
+    image: ollama/ollama:rocm
+    container_name: ollama-rocm
+    ports:
+      - "11434:11434"
+    volumes:
+      - ${HOME}/app/backend/ollama:/root/.ollama
+      - ./entrypoint.sh:/entrypoint.sh
+    # 2. Mapeamos os dispositivos de vídeo do seu sistema (Linux) para dentro do container
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    environment:
+      # Forçamos o suporte para RDNA 2 (GFX1030) caso a 680M não seja detectada nativamente
+      - HSA_OVERRIDE_GFX_VERSION=10.3.0
+    # 3. Dá as permissões necessárias para o container acessar a GPU
+    group_add:
+      - video
+    entrypoint: ./entrypoint.sh
+    restart: unless-stopped
