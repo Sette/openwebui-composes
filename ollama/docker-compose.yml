@@ -9,11 +9,3 @@ services:
       - ./entrypoint.sh:/entrypoint.sh
     entrypoint: ./entrypoint.sh
     restart: unless-stopped
-    # Se você tiver uma GPU NVIDIA, adicione as linhas abaixo:
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
